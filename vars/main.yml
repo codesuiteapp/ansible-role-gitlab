@@ -1,0 +1,5 @@
+---
+gitlab_home: "{{ app_home_dir }}/gitlab-docker"
+gitlab_cfgs: "{{ gitlab_home }}/config"
+gitlab_data: "{{ app_data_dir }}/gitlab"
+gitlab_logs: "{{ app_logs_dir }}/gitlab"

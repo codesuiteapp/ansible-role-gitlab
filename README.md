@@ -1,1 +1,1 @@
-# ansible-role-gitlab
+# Ansible Role: GitLab

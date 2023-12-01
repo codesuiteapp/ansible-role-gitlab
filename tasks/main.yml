@@ -1,0 +1,27 @@
+---
+- name: Creates directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ adm_user }}"
+    group: "{{ adm_group }}"
+    mode: '0775'
+    force: false
+  with_items:
+    - "{{ app_home_dir }}"
+    - "{{ gitlab_home }}"
+    - "{{ gitlab_data }}"
+
+- name: Copy file
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ adm_user }}"
+    group: "{{ adm_group }}"
+    mode: '0644'
+    backup: true
+  with_items:
+    - { src: '.env.j2', dest: '{{ nexus_home }}/.env' }
+    - { src: 'docker-compose.yml.j2', dest: '{{ nexus_home }}/docker-compose.yml' }
+  notify:
+    Restart gitlab
