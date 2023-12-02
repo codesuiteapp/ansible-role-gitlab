@@ -5,27 +5,30 @@ services:
     container_name: gitlab
     hostname: {{ gitlab_host }}
     environment:
+      TZ: Asia/Seoul
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://{{ gitlab_host }}/gitlab'
+        external_url '{{ external_url }}'
+        nginx['listen_port'] = 80
         nginx['listen_https'] = false
-        nginx['listen_port'] = 9999
+        nginx['redirect_http_to_https'] = false
         nginx['proxy_set_headers'] = {
           "X-Forwarded-Proto" => "https",
           "X-Forwarded-Ssl" => "on"
         }
-        gitlab_rails['gitlab_shell_ssh_port'] = 54322
 {% if use_traefik %}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gitlab.rule=Host(`${TRF_DOMAIN}`) && PathPrefix(`/gitlab`)"
       - "traefik.http.routers.gitlab.entrypoints=web,websecure"
+      - "traefik.http.routers.gitlab.rule=Host(`${TRF_DOMAIN}`) && PathPrefix(`/gitlab`)"
+      - "traefik.http.services.gitlab.loadbalancer.server.port={{ gitlab_http_port }}"
+    {% if use_traefik_tls %}
       - "traefik.http.routers.gitlab.tls=true"
-      - "traefik.http.services.gitlab.loadbalancer.server.port=9999"
+    {% endif %}
 {% endif %}
     ports:
-      - "9999:80"
-      - "54322:22"
-      - "54443:443"
+      - "{{ gitlab_http_port }}:80"
+      - "{{ gitlab_https_port }}:443"
+      - "{{ gitlab_ssh_port }}:22"
     volumes:
       - "{{ gitlab_data }}:/var/opt/gitlab"
       - "{{ gitlab_logs }}:/var/log/gitlab"

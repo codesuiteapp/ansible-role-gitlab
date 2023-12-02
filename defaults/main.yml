@@ -3,10 +3,15 @@ image_registry_server: "docker.io"
 gitlab_image: "gitlab/gitlab-ce"
 gitlab_ver: "latest"
 gitlab_host: git.devops.com
+gitlab_http_port: 9999
+gitlab_https_port: 9443
+gitlab_ssh_port: 9922
+# external_url: http://127.0.0.1/gitlab
 
 docker_compose_bin: "docker-compose"
 use_dkr_net: false
 use_traefik: false
+use_traefik_tls: false
 dkr_network: devops_net
 use_extra_hosts: false
 add_etc_host: "10.11.22.10   devops.com"
