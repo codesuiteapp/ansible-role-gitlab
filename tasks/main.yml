@@ -21,7 +21,7 @@
     mode: '0644'
     backup: true
   with_items:
-    - { src: '.env.j2', dest: '{{ nexus_home }}/.env' }
-    - { src: 'docker-compose.yml.j2', dest: '{{ nexus_home }}/docker-compose.yml' }
+    - { src: '.env.j2', dest: '{{ gitlab_home }}/.env' }
+    - { src: 'docker-compose.yml.j2', dest: '{{ gitlab_home }}/docker-compose.yml' }
   notify:
     Restart gitlab
