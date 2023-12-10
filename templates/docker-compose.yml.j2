@@ -3,13 +3,12 @@ services:
   gitlab:
     image: ${DOCKER_IMAGE}
     container_name: gitlab
-    hostname: {{ gitlab_host }}
+    hostname: gitlab
     environment:
       TZ: Asia/Seoul
       GITLAB_OMNIBUS_CONFIG: |
-        external_url '{{ external_url }}'
-        nginx['enable'] = false
-        nginx['listen_port'] = 80
+        external_url = "{{ external_url }}"
+        nginx['listen_port'] = "{{ gitlab_http_port }}"
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
         nginx['hide_server_tokens'] = 'on'
