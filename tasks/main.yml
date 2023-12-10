@@ -25,6 +25,6 @@
     - { src: 'docker-compose.yml.j2', dest: '{{ gitlab_home }}/docker-compose.yml' }
 
 - name: Restart gitlab
-  shell: echo success
+  ansible.builtin.shell: echo success
   notify:
     Restart gitlab
