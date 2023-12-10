@@ -23,5 +23,8 @@
   with_items:
     - { src: '.env.j2', dest: '{{ gitlab_home }}/.env' }
     - { src: 'docker-compose.yml.j2', dest: '{{ gitlab_home }}/docker-compose.yml' }
+
+- name: Restart gitlab
+  shell: echo success
   notify:
     Restart gitlab
