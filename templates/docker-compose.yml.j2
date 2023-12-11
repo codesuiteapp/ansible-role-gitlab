@@ -7,8 +7,8 @@ services:
     environment:
       TZ: Asia/Seoul
       GITLAB_OMNIBUS_CONFIG: |
-        external_url = "{{ external_url }}"
-        nginx['listen_port'] = "{{ gitlab_web_port }}"
+        external_url '{{ external_url }}'
+        nginx['listen_port'] = '{{ gitlab_web_port }}'
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
         nginx['hide_server_tokens'] = 'on'
@@ -32,9 +32,9 @@ services:
       - "{{ gitlab_https_port }}:443"
       - "{{ gitlab_ssh_port }}:22"
     volumes:
+      - "{{ gitlab_cfgs }}:/etc/gitlab"
       - "{{ gitlab_data }}:/var/opt/gitlab"
       - "{{ gitlab_logs }}:/var/log/gitlab"
-      - "{{ gitlab_cfgs }}:/etc/gitlab"
     shm_size: "256m"
     restart: always
 {% if use_dkr_net %}
