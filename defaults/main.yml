@@ -2,7 +2,9 @@
 image_registry_server: "docker.io"
 gitlab_image: "gitlab/gitlab-ce"
 gitlab_ver: "latest"
-gitlab_host: git.devops.com
+gitlab_host: "gitlab"
+rp_http_port: 8080
+gitlab_web_port: 80
 gitlab_http_port: 9999
 gitlab_https_port: 9443
 gitlab_ssh_port: 9922

@@ -8,7 +8,7 @@ services:
       TZ: Asia/Seoul
       GITLAB_OMNIBUS_CONFIG: |
         external_url = "{{ external_url }}"
-        nginx['listen_port'] = "{{ gitlab_http_port }}"
+        nginx['listen_port'] = "{{ gitlab_web_port }}"
         nginx['listen_https'] = false
         nginx['redirect_http_to_https'] = false
         nginx['hide_server_tokens'] = 'on'
@@ -28,7 +28,7 @@ services:
     {% endif %}
 {% endif %}
     ports:
-      - "{{ gitlab_http_port }}:80"
+      - "{{ gitlab_http_port }}:{{ gitlab_web_port }}"
       - "{{ gitlab_https_port }}:443"
       - "{{ gitlab_ssh_port }}:22"
     volumes:
